@@ -34,12 +34,33 @@ print(sum)
 ```
 
 ## Introduction 
-It is generally agreed upon that the prison system in the US is one of the most egregious examples of institutional racism to be found in the country. One of the many social and political factors that contributed to the disproportionate number of people of color who are incarcerated is over-policing. This disparity in incarceration rates can be attributed to a wide range of other factors, so in this report, we are going to find out more about incarceration. How has the prison population changed since 1970s, which state/states is/are have the largest growth of the prison population, also we are going to find out if there is a inequality between genders and races.
+It is generally agreed upon that the prison system in the US is one of the most egregious examples of institutional racism to be found in the country. One of the many social and political factors that contributed to the disproportionate number of people of color who are incarcerated is over-policing. This disparity in incarceration rates can be attributed to a wide range of other factors. The direct stakeholders that would be impacted by this dataset are the US justice system and people who are responsible for managing the system. The indirect stakeholders might be all of those prisons and people are in jails that facing inequality like over-policing.And in this report, we are going to find out more about incarceration. How has the prison population changed since 1970s, which state/states is/are have the largest growth of the prison population, also we are going to find out if there is a inequality between genders and races.
 
 ## Data Summary 
-[TODO]
+The data provided by Vera Institute has provide many information about incarceration, it is in detalied and from those data, I try to find out the data about the average female jails across the nation, and the second value I am looking at is the years with the most population of 15 to 64, which turns out there are only one of them, in 2016, which have population of 6,958,134. The final value I am looking for is the average male jail population in the state of Washington in 2001, which turns out to be 268.59, around 269 female jail.
 
-[TODO ... other sections ... See Canvas for details]
+## Growth of the U.S. Prison Population
+```{r echo=FALSE}
+plot_jail_pop_for_us()
+```
+In the chart above, it reveals the growth of the US prison population from 1970 to 2018, we could see that since around 1978, the prison population has started to increase and it continues to increase until 2008, and the prison population is about 4 times more than 1978. And after 2008, the numbers has been fluctuated a bit, but it seems to decrease iver time.
 
-_All the very best with your work!_
+## Growth of Prison Population by State
+```{r echo=FALSE}
+plot_jail_pop_by_states(state_vector)
+```
+This chart shows the growth of jail in three different states, Washington, Montana and Idaho, we can see that the growth rate of prison population in WA is the highest, and Montana is the lowest, and because of the higher population in the Washington states, it also has the greatest prison population among these three states, Idaho is in the middle of these three states.
+
+## Section5
+```{r echo=FALSE}
+
+```
+
+
+## Section6
+```{r echo=FALSE}
+
+```
+
+
 

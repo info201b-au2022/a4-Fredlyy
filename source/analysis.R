@@ -28,9 +28,9 @@ get_average_female_jail_pop <- function() {
   return(female_jail_pop)
 }
 
-# Years with the least population of 15 to 64
-year_min_total_pop_15_to_64 <- data %>%
-  filter(total_pop_15to64 == min(total_pop_15to64, na.rm = TRUE)) %>%
+# Years with the most population of 15 to 64
+year_max_total_pop_15_to_64 <- data %>%
+  filter(total_pop_15to64 == max(total_pop_15to64, na.rm = TRUE)) %>%
   pull(year)
 
 # Average male jail population in the state of Washington in 2001
@@ -84,7 +84,7 @@ state_vector <- c("WA", "ID", "MT")
 plot_jail_pop_by_states <- function(states) {
   jail_pop_chart <- ggplot(get_jail_pop_by_states(states)) +
     geom_line(mapping = aes(x = year, y = year_jail_pop, color = state)) +
-    labs(x = "Year", y = "Population of Jails", title = "Growth of Jail Population per Year", 
+    labs(x = "Year", y = "Population of Jails", title = "Growth of Jail Population", 
     caption = "Growth of Jail Population from 1970-2018 in Washington, Idaho and Montana")
   return(jail_pop_chart)
 }
