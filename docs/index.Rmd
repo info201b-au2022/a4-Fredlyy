@@ -1,7 +1,7 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+title: "Incarceration Analysis"
+author: "Fred Li"
+date: '2022-11-21'
 output: html_document
 ---
 
@@ -11,7 +11,7 @@ source("../source/analysis.R")
 ```
 
 ## Abstract 
-[TODO: Include a short abstract (about 50 words)]
+Disparities in the criminal justice system have become increasingly apparent in US incarceration statistics since 1970. The effects of shifting policies regarding crime and incarceration have varied across time, place, and jurisdiction. The number of people locked up in prisons is staggering. In this report, we look at incarceration rates from the past to gain insight into the problems we face now and how to solve them going forward.
 
 # Test (TODO: Remove before submission!!)
 ```{r echo=FALSE}
@@ -34,7 +34,7 @@ print(sum)
 ```
 
 ## Introduction 
-[TODO]
+It is generally agreed upon that the prison system in the US is one of the most egregious examples of institutional racism to be found in the country. One of the many social and political factors that contributed to the disproportionate number of people of color who are incarcerated is over-policing. This disparity in incarceration rates can be attributed to a wide range of other factors, so in this report, we are going to find out more about incarceration. How has the prison population changed since 1970s, which state/states is/are have the largest growth of the prison population, also we are going to find out if there is a inequality between genders and races.
 
 ## Data Summary 
 [TODO]

@@ -1,8 +1,8 @@
 library(tidyverse)
-
+library(ggplot2)
+library(dplyr)
 # The functions might be useful for A4
 source("../source/a4-helpers.R")
-
 ## Test queries ----
 #----------------------------------------------------------------------------#
 # Simple queries for basic testing
@@ -18,47 +18,94 @@ test_query2 <- function(num=6) {
   return(v)
 }
 
+data <- read.csv("https://raw.githubusercontent.com/vera-institute/incarceration-trends/master/incarceration_trends.csv", stringsAsFactors = FALSE)
 ## Section 2  ---- 
 #----------------------------------------------------------------------------#
-# Your functions and variables might go here ... <todo: update comment>
+# Average female jails across the nation
+get_average_female_jail_pop <- function() {
+  average_female_jail_pop <- data %>%
+    summarise(female_jail_pop == mean(female_jail_pop, na.rm = TRUE)) %>%
+  return(female_jail_pop)
+}
+
+# Years with the least population of 15 to 64
+year_min_total_pop_15_to_64 <- data %>%
+  filter(total_pop_15to64 == min(total_pop_15to64, na.rm = TRUE)) %>%
+  pull(year)
+
+# Average male jail population in the state of Washington in 2001
+wa_average_jail_pop <- data %>%
+  filter(state == "WA")%>%
+  filter(year == 2001) %>%
+  summarise(male_jail_pop = sum(male_jail_pop, na.rm = TRUE) / n()) %>%
+  pull(male_jail_pop)
+
 #----------------------------------------------------------------------------#
 
 ## Section 3  ---- 
 #----------------------------------------------------------------------------#
 # Growth of the U.S. Prison Population
-# Your functions might go here ... <todo:  update comment>
-#----------------------------------------------------------------------------#
-# This function ... <todo:  update comment>
 get_year_jail_pop <- function() {
-  # TODO: Implement this function 
-return()   
+  year_jail_pop <- data %>%
+    group_by(year) %>%
+    summarise(year_jail_pop = sum(total_jail_pop, na.rm = TRUE)) %>%
+    select(year, year_jail_pop)
+  return(year_jail_pop)
 }
 
-# This function ... <todo:  update comment>
+year_jail_pop <- get_year_jail_pop()
+
 plot_jail_pop_for_us <- function()  {
-  # TODO: Implement this function 
-  return()   
+  jail_pop_chart <- ggplot(get_year_jail_pop()) +
+    geom_col(mapping = aes(x = year, y = year_jail_pop)) +
+    labs(x = "Year", y = "Population of Jails", title = "Growth of Prison Population from 1970-2018", 
+         caption = "Growth of Prison population")
+  return(jail_pop_chart)   
 } 
+
+jail_pop_chart <- plot_jail_pop_for_us()
+jail_pop_chart
+
+#----------------------------------------------------------------------------#
 
 ## Section 4  ---- 
 #----------------------------------------------------------------------------#
 # Growth of Prison Population by State 
-# Your functions might go here ... <todo:  update comment>
-# See Canvas
+get_jail_pop_by_states <- function(states) {
+  growth_by_state <- data %>%
+    filter(state %in% states) %>%
+    group_by(state, year) %>%
+    summarise(year_jail_pop = sum(total_pop, na.rm = TRUE))
+  return(growth_by_state)
+}
+
+state_vector <- c("WA", "ID", "MT")
+
+plot_jail_pop_by_states <- function(states) {
+  jail_pop_chart <- ggplot(get_jail_pop_by_states(states)) +
+    geom_line(mapping = aes(x = year, y = year_jail_pop, color = state)) +
+    labs(x = "Year", y = "Population of Jails", title = "Growth of Jail Population per Year", 
+    caption = "Growth of Jail Population from 1970-2018 in Washington, Idaho and Montana")
+  return(jail_pop_chart)
+}
+
+plot_jail_pop_by_states(state_vector)
+
 #----------------------------------------------------------------------------#
 
 ## Section 5  ---- 
 #----------------------------------------------------------------------------#
 # <variable comparison that reveals potential patterns of inequality>
-# Your functions might go here ... <todo:  update comment>
-# See Canvas
+
+
+
 #----------------------------------------------------------------------------#
 
 ## Section 6  ---- 
 #----------------------------------------------------------------------------#
 # <a map shows potential patterns of inequality that vary geographically>
-# Your functions might go here ... <todo:  update comment>
-# See Canvas
+
+
 #----------------------------------------------------------------------------#
 
 ## Load data frame ---- 
