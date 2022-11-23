@@ -51,16 +51,16 @@ plot_jail_pop_by_states(state_vector)
 ```
 This chart shows the growth of jail in three different states, Washington, Montana and Idaho, we can see that the growth rate of prison population in WA is the highest, and Montana is the lowest, and because of the higher population in the Washington states, it also has the greatest prison population among these three states, Idaho is in the middle of these three states.
 
-## Section5
+## Race Comparison between Black and White Jail Population 
 ```{r echo=FALSE}
-
+race_incarceration_plot()
 ```
+In the chart above, I compared the black jail population and the white jail population use a line graph, we could see that around 1984, both of population has increased dramatically, and after 1990, black jail population has a larger increase rate than white jail population, after around 1999, white jail population has increased faster than black jail population. after about 2006, black jail population start to going down, and white jail population seems to be fluctuated a bit, but overall, it is still increasing till 2017.
 
-
-## Section6
+## Incarceration Inequality based on Geographic
 ```{r echo=FALSE}
-
+inequality_geo_map()
 ```
-
+We could see from the above map, Arizona is the state that with the most native jail population compared to other states, and the west region seems to have more native jail population compared to other region, the state with the less native jail population is Alabama, and overall south region seems to have less native jail population.
 
 

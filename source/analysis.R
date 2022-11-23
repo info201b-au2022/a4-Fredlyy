@@ -1,6 +1,8 @@
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
+library(usmap)
+library(leaflet)
 # The functions might be useful for A4
 source("../source/a4-helpers.R")
 ## Test queries ----
@@ -95,8 +97,25 @@ plot_jail_pop_by_states(state_vector)
 
 ## Section 5  ---- 
 #----------------------------------------------------------------------------#
-# <variable comparison that reveals potential patterns of inequality>
+# Incarceration: Patterns of Inequality
+inequality_graph <- function() {
+  inequality_graph <- data %>%
+    select(year, black_jail_pop, white_jail_pop) %>%
+    replace(is.na(.), 0) %>%
+    mutate(black_sum = black_jail_pop, white_sum = white_jail_pop) %>%
+    group_by(year) %>%
+    summarise(black_sum = sum(black_sum), white_sum = sum(white_sum))
+  return (inequality_graph)
+}
 
+race_incarceration_plot <- function() {
+  race_diff_graph <- ggplot(inequality_graph()) + 
+    geom_line(mapping = aes(x = year, y = black_sum, color = "black")) +
+    geom_line(mapping = aes(x = year, y = white_sum, color = "white"))
+    labs(x = "Year", y = "Jail population", title = "Difference in Growth of Black and White Jail Pop")
+  return(race_diff_graph)
+}
+race_incarceration_plot()
 
 
 #----------------------------------------------------------------------------#
@@ -105,9 +124,40 @@ plot_jail_pop_by_states(state_vector)
 #----------------------------------------------------------------------------#
 # <a map shows potential patterns of inequality that vary geographically>
 
+inequality_geo <- data %>%
+  select(state, year, native_jail_pop, total_jail_pop) %>%
+  filter(year == 2010) %>%
+  mutate(native_rate = native_jail_pop / total_jail_pop) %>%
+  mutate(native_rate = native_jail_pop * 100) 
+
+state_shape <- map_data("state") %>%
+  rename(state = region) %>%
+  left_join(inequality_geo)
+
+inequality_geo_map <- function() {
+  inequality_map <- ggplot(state_shape) + 
+    geom_polygon(
+      mapping = aes(x = long, y = lat, group = group, fill = native_rate),
+      color = "black",
+      size = 0.1
+    ) + 
+    coord_map() + 
+    scale_fill_continuous(na.value = "grey", low = "white", high = "red") + 
+    labs(fill = "Native Population in 2010") + 
+    ggtitle("Native Jail Population Across Nation in 2010") + 
+    theme_bw() + 
+    theme(
+      axis.line = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title = element_blank(),
+      plot.background = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank() 
+    )
+  return(inequality_map)
+}
+inequality_geo_map()
 
 #----------------------------------------------------------------------------#
-
-## Load data frame ---- 
-
-
